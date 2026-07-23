@@ -1,0 +1,96 @@
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
+
+// Lazy loaded pages
+const Home = lazy(() => import("./pages/clientSide/Home"));
+const Sessions = lazy(() => import("./pages/clientSide/Sessions"));
+const Tasks = lazy(() => import("./pages/clientSide/Tasks"));
+const Portfolio = lazy(() => import("./pages/clientSide/Portfolio"));
+const Feedbacks = lazy(() => import("./pages/clientSide/Feedbacks"));
+
+const Login = lazy(() => import("./pages/auth/Login"));
+
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const ManageCategories = lazy(() => import("./pages/admin/ManageCategories"));
+const ManageSessions = lazy(() => import("./pages/admin/ManageSessions"));
+const ManageTasks = lazy(() => import("./pages/admin/ManageTasks"));
+const ManagePortfolio = lazy(() => import("./pages/admin/ManagePortfolio"));
+const ManageFeedbacks = lazy(() => import("./pages/admin/ManageFeedbacks"));
+const WebsiteSettings = lazy(() => import("./pages/admin/WebsiteSettings"));
+
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+
+// Initialize React Query Client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+
+      <BrowserRouter>
+        <Suspense
+          fallback={
+            <div className="flex h-screen items-center justify-center">
+              Loading...
+            </div>
+          }
+        >
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/sessions" element={<Sessions />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/feedbacks" element={<Feedbacks />} />
+
+            {/* Admin Routes */}
+            <Route path="/login" element={<Login />} />
+
+            <Route path="/admin">
+              <Route index element={<Navigate replace to="dashboard" />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="categories" element={<ManageCategories />} />
+              <Route path="sessions" element={<ManageSessions />} />
+              <Route path="tasks" element={<ManageTasks />} />
+              <Route path="portfolio" element={<ManagePortfolio />} />
+              <Route path="feedbacks" element={<ManageFeedbacks />} />
+              <Route path="settings" element={<WebsiteSettings />} />
+            </Route>
+
+            {/* Catch All */}
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: { duration: 3000 },
+          error: { duration: 5000 },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-0)",
+            color: "var(--color-grey-700)",
+          },
+        }}
+      />
+    </QueryClientProvider>
+  );
+}
+
+export default App;
