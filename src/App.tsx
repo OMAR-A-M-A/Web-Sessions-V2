@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import { AppLayout } from "./ui/AppLayout";
 
 // Lazy loaded pages
 const Home = lazy(() => import("./pages/clientSide/Home"));
@@ -56,7 +57,7 @@ function App() {
             {/* Admin Routes */}
             <Route path="/login" element={<Login />} />
 
-            <Route path="/admin">
+            <Route path="/admin" element={<AppLayout />}>
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="categories" element={<ManageCategories />} />
@@ -81,11 +82,12 @@ function App() {
           success: { duration: 3000 },
           error: { duration: 5000 },
           style: {
-            fontSize: "16px",
+            fontSize: "14px",
             maxWidth: "500px",
             padding: "16px 24px",
-            backgroundColor: "var(--color-grey-0)",
-            color: "var(--color-grey-700)",
+            backgroundColor: "#1e293b",
+            color: "#f8fafc", 
+            border: "1px solid #334155", 
           },
         }}
       />
