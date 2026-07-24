@@ -12,15 +12,13 @@ import {
 } from "@/ui/card";
 import { useLogin } from "@/features/authentication/hooks/useLogin";
 import { MiniSpinner } from "@/ui/MiniSpinner";
-import { SiGithub, SiGmail } from "react-icons/si";
+import { Logo } from "@/ui/Logo";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("oa5252842@gmail.com");
+  const [password, setPassword] = useState("omar011");
 
-  const { login, isPending, loginOAuth, isOAuthPending } = useLogin();
-
-  const isLoading = isPending || isOAuthPending;
+  const { login, isPending } = useLogin();
 
   function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
@@ -38,7 +36,8 @@ export default function Login() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4 transition-colors duration-300 dark:bg-[#0B1120]">
       <Card className="w-full max-w-md p-8 space-y-10">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl font-bold tracking-tight">
+          <Logo />
+          <CardTitle className="text-2xl font-bold tracking-tight mt-2">
             Admin Panel Access
           </CardTitle>
           <CardDescription>
@@ -56,7 +55,7 @@ export default function Login() {
                 placeholder="admin@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading}
+                disabled={isPending}
                 required
               />
             </div>
@@ -68,49 +67,17 @@ export default function Login() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                disabled={isLoading}
+                disabled={isPending}
                 required
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full" disabled={isPending}>
               {isPending ? <MiniSpinner className="mr-2" /> : null}
               Sign In
             </Button>
           </form>
 
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-slate-200 dark:border-slate-800" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-slate-500 dark:bg-slate-900 dark:text-slate-400 transition-colors">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              variant="outline"
-              type="button"
-              disabled={isLoading}
-              onClick={() => loginOAuth("github")}
-            >
-              <SiGithub className="mr-2 h-5 w-5 text-black" />
-              GitHub
-            </Button>
-
-            <Button
-              variant="outline"
-              type="button"
-              disabled={isLoading}
-              onClick={() => loginOAuth("google")}
-            >
-              <SiGmail className="mr-2 h-5 w-5 text-red-800" />
-              Google
-            </Button>
-          </div>
         </CardContent>
       </Card>
     </div>
