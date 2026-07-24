@@ -10,65 +10,14 @@ import { Switch } from "@/ui/switch";
 import { Button } from "@/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import TechIcon from "@/ui/TechIcon";
+import { useCategories } from "./hooks/useCategories";
+import { Spinner } from "@/ui/Spinner";
 
-const mockCategories = [
-  {
-    id: 1,
-    name: "HTML",
-    slug: "html",
-    color: "#E34F26",
-    sessions: 1,
-    tasks: 2,
-    visible: false,
-  },
-  {
-    id: 2,
-    name: "CSS",
-    slug: "css",
-    color: "#1572B6",
-    sessions: 1,
-    tasks: 1,
-    visible: false,
-  },
-  {
-    id: 3,
-    name: "JavaScript",
-    slug: "javascript",
-    color: "#F7DF1E",
-    sessions: 1,
-    tasks: 1,
-    visible: false,
-  },
-  {
-    id: 4,
-    name: "TypeScript",
-    slug: "typescript",
-    color: "#3178C6",
-    sessions: 1,
-    tasks: 1,
-    visible: true,
-  },
-  {
-    id: 5,
-    name: "React",
-    slug: "react",
-    color: "#61DAFB",
-    sessions: 1,
-    tasks: 2,
-    visible: true,
-  },
-  {
-    id: 6,
-    name: "Git/GitHub",
-    slug: "github",
-    color: "#F05133",
-    sessions: 1,
-    tasks: 1,
-    visible: true,
-  },
-];
 
 export default function CategoriesTable() {
+  const { categories, isLoadingCategories } = useCategories();
+  if (isLoadingCategories) return <Spinner />;
+  console.log(categories);
   return (
     <Table>
       <TableHeader>
@@ -84,7 +33,7 @@ export default function CategoriesTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mockCategories.map((category, index) => (
+        {categories?.map((category, index) => (
           <TableRow key={category.id}>
             <TableCell className="font-medium text-slate-500">
               {index + 1}
@@ -94,7 +43,7 @@ export default function CategoriesTable() {
               <div className="flex items-center gap-3">
                 <div
                   className="flex h-8 w-8 items-center justify-center rounded-md bg-slate-100 dark:bg-slate-800/50"
-                  style={{ color: category.color }}
+                  style={{ color: category.categoryColor }}
                 >
                   <TechIcon techName={category.slug} className="h-5 w-5" />
                 </div>
@@ -112,10 +61,10 @@ export default function CategoriesTable() {
               <div className="flex items-center gap-2">
                 <div
                   className="h-3 w-3 rounded-full"
-                  style={{ backgroundColor: category.color }}
+                  style={{ backgroundColor: category.categoryColor }}
                 />
                 <span className="text-sm text-slate-600 dark:text-slate-400">
-                  {category.color}
+                  {category.categoryColor}
                 </span>
               </div>
             </TableCell>
@@ -129,7 +78,7 @@ export default function CategoriesTable() {
             </TableCell>
 
             <TableCell>
-              <Switch checked={category.visible} />
+              <Switch checked={category.isVisible} />
             </TableCell>
 
             <TableCell className="text-right">

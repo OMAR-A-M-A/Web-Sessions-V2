@@ -7,6 +7,7 @@ import {
   SiTypescript,
   SiReact,
   SiGithub,
+  SiTailwindcss,
 } from "react-icons/si";
 import { Code2 } from "lucide-react";
 
@@ -19,6 +20,7 @@ const iconMap: Record<string, React.ElementType> = {
   ts: SiTypescript,
   react: SiReact,
   github: SiGithub,
+  tailwind:SiTailwindcss
 };
 
 interface TechIconProps {

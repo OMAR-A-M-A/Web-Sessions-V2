@@ -8,8 +8,10 @@ export interface Category {
   displayOrder?: number;
   isVisible: boolean;
   categoryColor: string;
-  slug:string;
+  slug: string;
   created_at: string;
+  sessions: number;
+  tasks: number;
 }
 export type CategoryInput = Omit<Category, "id" | "created_at">;
 
@@ -20,15 +22,23 @@ export async function getCategories(): Promise<{
 }> {
   const { data, error, count } = await supabase
     .from("categories")
-    .select("*", { count: "exact" })
+    .select("*, sessions:sessions(count), tasks:tasks(count)", {
+      count: "exact",
+    })
     .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Error fetching categories:", error);
     throw new Error("Could not fetch categories. Please try again later.");
   }
+  // format the data to extract the number of sessions and tasks
+  const formattedData: Category[] = (data || []).map((category) => ({
+    ...category,
+    sessions: category.sessions?.[0]?.count || 0,
+    tasks: category.tasks?.[0]?.count || 0,
+  }));
 
-  return { data: data ?? [], count };
+  return { data: formattedData, count };
 }
 
 //* get one category by id
