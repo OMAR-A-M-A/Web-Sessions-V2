@@ -3,7 +3,7 @@ import { ChevronRight, Sun, Moon } from "lucide-react";
 
 import { useBreadcrumbs } from "@/hooks/useBreadcrumbs";
 import { useDarkMode } from "@/context/DarkModeContext";
-import { LogoutButton } from "./LogoutButton";
+import { LogoutButton } from "../features/authentication/LogoutButton";
 
 export function Header() {
   const breadcrumbs = useBreadcrumbs();

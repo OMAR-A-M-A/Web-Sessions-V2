@@ -14,28 +14,39 @@ import { useCategories } from "./hooks/useCategories";
 import { Spinner } from "@/ui/Spinner";
 import { Modal } from "@/ui/Modal";
 import { ConfirmDelete } from "@/ui/ConfirmDelete";
+import { useDeleteCategory } from "./hooks/useDeleteCategory";
+import { useUpdateCategory } from "./hooks/useUpdateCategory";
+import { CategoryForm } from "./CategoryForm";
 
 export default function CategoriesTable() {
   const { categories, isLoadingCategories } = useCategories();
+  const { deleteCategory, isDeleteing } = useDeleteCategory();
+  const { isUpdating, updateCategory } = useUpdateCategory();
   if (isLoadingCategories) return <Spinner />;
+  if (!categories?.length)
+    return (
+      <p className="flex items-center justify-center">
+        No categories start add one
+      </p>
+    );
   return (
-    <Modal>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[5%]">#</TableHead>
-            <TableHead className="w-[20%]">Category</TableHead>
-            <TableHead className="w-[15%]">Slug</TableHead>
-            <TableHead className="w-[15%]">Color</TableHead>
-            <TableHead className="w-[12%]">Sessions</TableHead>
-            <TableHead className="w-[12%]">Tasks</TableHead>
-            <TableHead className="w-[10%]">Visible</TableHead>
-            <TableHead className="w-[11%] text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {categories?.map((category, index) => (
-            <TableRow key={category.id}>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[5%]">#</TableHead>
+          <TableHead className="w-[20%]">Category</TableHead>
+          <TableHead className="w-[15%]">Slug</TableHead>
+          <TableHead className="w-[15%]">Color</TableHead>
+          <TableHead className="w-[12%]">Sessions</TableHead>
+          <TableHead className="w-[12%]">Tasks</TableHead>
+          <TableHead className="w-[10%]">Visible</TableHead>
+          <TableHead className="w-[11%] text-right">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {categories?.map((category, index) => (
+          <TableRow key={category.id}>
+            <Modal>
               <TableCell className="font-medium text-slate-500">
                 {index + 1}
               </TableCell>
@@ -79,7 +90,16 @@ export default function CategoriesTable() {
               </TableCell>
 
               <TableCell>
-                <Switch checked={category.isVisible} />
+                <Switch
+                  checked={category.isVisible}
+                  disabled={isUpdating}
+                  onCheckedChange={() =>
+                    updateCategory({
+                      id: category.id,
+                      updatedData: { isVisible: !category.isVisible },
+                    })
+                  }
+                />
               </TableCell>
 
               <TableCell className="text-right">
@@ -110,22 +130,24 @@ export default function CategoriesTable() {
                   >
                     <ConfirmDelete
                       resourceName="category"
-                      onConfirm={() => {}}
+                      disabled={isDeleteing}
+                      onConfirm={() => deleteCategory(category.id)}
                     />
                   </Modal.Window>
                   <Modal.Window
+                    className="w-2xl"
                     name="edit-category"
                     title="edit"
                     description="there a form you can edit from"
                   >
-                    edit
+                    <CategoryForm categoryToEdit={category} />
                   </Modal.Window>
                 </div>
               </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Modal>
+            </Modal>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

@@ -1,4 +1,5 @@
 import { Button } from "@/ui/button";
+import { MiniSpinner } from "./MiniSpinner";
 
 interface ConfirmDeleteProps {
   resourceName: string;
@@ -43,7 +44,7 @@ export function ConfirmDelete({
           onClick={onConfirm}
           className="w-24"
         >
-          Delete
+          {disabled ? <MiniSpinner /> : "Delete"}
         </Button>
       </div>
     </div>

@@ -10,8 +10,8 @@ export interface Category {
   categoryColor: string;
   slug: string;
   created_at: string;
-  sessions: number;
-  tasks: number;
+  sessions?: number;
+  tasks?: number;
 }
 export type CategoryInput = Omit<Category, "id" | "created_at">;
 
@@ -25,7 +25,7 @@ export async function getCategories(): Promise<{
     .select("*, sessions:sessions(count), tasks:tasks(count)", {
       count: "exact",
     })
-    .order("created_at", { ascending: false });
+    .order("displayOrder", { ascending: true });
 
   if (error) {
     console.error("Error fetching categories:", error);
@@ -76,10 +76,15 @@ export async function createCategory(
 }
 
 //* update category
-export async function updateCategory(
-  id: string,
-  updatedData: Partial<CategoryInput>,
-): Promise<Category> {
+interface UpdateCategoryInput {
+  id: string;
+  updatedData: Partial<CategoryInput>;
+}
+
+export async function updateCategory({
+  id,
+  updatedData,
+}: UpdateCategoryInput): Promise<Category> {
   const { data, error } = await supabase
     .from("categories")
     .update(updatedData)

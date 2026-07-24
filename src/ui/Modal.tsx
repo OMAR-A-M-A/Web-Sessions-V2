@@ -3,7 +3,6 @@ import {
   useContext,
   useState,
   cloneElement,
-  isValidElement,
   type ReactElement,
   type MouseEventHandler,
   type ReactNode,
@@ -54,15 +53,15 @@ function Open({ children, opens: opensWindowName }: OpenProps) {
   });
 }
 
+interface ModalChildProps {
+  onCloseModal?: () => void;
+}
 interface WindowProps {
-  children: ReactNode;
+  children: ReactElement<ModalChildProps>;
   name: string;
   title: string;
   description?: string;
   className?: string;
-}
-interface ModalChildProps {
-  onCloseModal?: () => void;
 }
 function Window({
   children,
@@ -99,11 +98,7 @@ function Window({
 
         {/* Dynamic content */}
         <div className="w-full">
-          {isValidElement(children)
-            ? cloneElement(children as ReactElement<ModalChildProps>, {
-                onCloseModal: close,
-              })
-            : children}
+          {cloneElement(children, { onCloseModal: close })}
         </div>
       </DialogContent>
     </Dialog>
