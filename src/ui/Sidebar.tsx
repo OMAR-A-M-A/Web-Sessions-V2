@@ -6,6 +6,7 @@ import {
   Briefcase,
   MessageSquare,
   Settings,
+  ChartBarStacked,
 } from "lucide-react";
 import { Logo } from "./Logo";
 
@@ -13,7 +14,7 @@ const navLinks = [
   { name: "Overview", to: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Sessions", to: "/admin/sessions", icon: MonitorPlay },
   { name: "Tasks", to: "/admin/tasks", icon: ListTodo },
-  { name: "Categories", to: "/admin/categories", icon: ListTodo },
+  { name: "Categories", to: "/admin/categories", icon: ChartBarStacked },
   { name: "Feedback", to: "/admin/feedbacks", icon: MessageSquare },
   { name: "Portfolio", to: "/admin/portfolio", icon: Briefcase },
   { name: "Settings", to: "/admin/settings", icon: Settings },

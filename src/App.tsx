@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { AppLayout } from "./ui/AppLayout";
+import { Spinner } from "./ui/Spinner";
 
 // Lazy loaded pages
 const Home = lazy(() => import("./pages/clientSide/Home"));
@@ -39,13 +40,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
 
       <BrowserRouter>
-        <Suspense
-          fallback={
-            <div className="flex h-screen items-center justify-center">
-              Loading...
-            </div>
-          }
-        >
+        <Suspense fallback={<Spinner />}>
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
@@ -86,8 +81,8 @@ function App() {
             maxWidth: "500px",
             padding: "16px 24px",
             backgroundColor: "#1e293b",
-            color: "#f8fafc", 
-            border: "1px solid #334155", 
+            color: "#f8fafc",
+            border: "1px solid #334155",
           },
         }}
       />
