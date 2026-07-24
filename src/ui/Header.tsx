@@ -3,6 +3,7 @@ import { ChevronRight, Sun, Moon } from "lucide-react";
 
 import { useBreadcrumbs } from "@/hooks/useBreadcrumbs";
 import { useDarkMode } from "@/context/DarkModeContext";
+import { LogoutButton } from "./LogoutButton";
 
 export function Header() {
   const breadcrumbs = useBreadcrumbs();
@@ -47,6 +48,9 @@ export function Header() {
         >
           {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
         </button>
+        <div className="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+
+        <LogoutButton/>
       </div>
     </header>
   );

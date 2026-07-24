@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { AppLayout } from "./ui/AppLayout";
 import { Spinner } from "./ui/Spinner";
+import { ProtectedRoute } from "./ui/ProtectedRoute";
 
 // Lazy loaded pages
 const Home = lazy(() => import("./pages/clientSide/Home"));
@@ -52,7 +53,14 @@ function App() {
             {/* Admin Routes */}
             <Route path="/login" element={<Login />} />
 
-            <Route path="/admin" element={<AppLayout />}>
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="categories" element={<ManageCategories />} />
