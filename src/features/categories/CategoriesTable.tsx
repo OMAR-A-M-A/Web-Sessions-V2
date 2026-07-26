@@ -82,11 +82,11 @@ export default function CategoriesTable() {
               </TableCell>
 
               <TableCell className="text-slate-600 dark:text-slate-400">
-                {category.sessions}
+                {category.sessions == 0 ? "—" : category.sessions}
               </TableCell>
 
               <TableCell className="text-slate-600 dark:text-slate-400">
-                {category.tasks}
+                {category.tasks == 0 ? "—" : category.tasks}
               </TableCell>
 
               <TableCell>
