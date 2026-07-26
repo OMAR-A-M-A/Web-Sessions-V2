@@ -23,6 +23,7 @@ const ManageTasks = lazy(() => import("./pages/admin/ManageTasks"));
 const ManagePortfolio = lazy(() => import("./pages/admin/ManagePortfolio"));
 const ManageFeedbacks = lazy(() => import("./pages/admin/ManageFeedbacks"));
 const WebsiteSettings = lazy(() => import("./pages/admin/WebsiteSettings"));
+const Account = lazy(() => import("./pages/admin/Account"));
 
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
@@ -69,6 +70,7 @@ function App() {
               <Route path="portfolio" element={<ManagePortfolio />} />
               <Route path="feedbacks" element={<ManageFeedbacks />} />
               <Route path="settings" element={<WebsiteSettings />} />
+              <Route path="account" element={<Account />} />
             </Route>
 
             {/* Catch All */}
