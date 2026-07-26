@@ -1,19 +1,8 @@
+import type { Category, CategoryInput } from "@/types/categoryTypes";
 import supabase from "./supabase";
 
 //* types for category
-export interface Category {
-  id: string;
-  name: string;
-  description?: string;
-  displayOrder?: number;
-  isVisible: boolean;
-  categoryColor: string;
-  slug: string;
-  created_at: string;
-  sessions?: number;
-  tasks?: number;
-}
-export type CategoryInput = Omit<Category, "id" | "created_at">;
+
 
 //* get all categories
 export async function getCategories(): Promise<{

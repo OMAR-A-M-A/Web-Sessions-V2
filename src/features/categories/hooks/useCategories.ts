@@ -9,6 +9,5 @@ export function useCategories() {
     queryFn: getCategories,
     queryKey: ["categories"],
   });
-  console.log(categories)
   return { categories, isLoadingCategories, count };
 }

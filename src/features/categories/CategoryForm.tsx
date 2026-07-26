@@ -4,7 +4,7 @@ import { categorySchema, type CategoryFormData } from "./categorySchema";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
-import { type Category } from "@/services/apiCategories";
+import { type Category } from "@/types/categoryTypes";
 import { FormRow } from "@/ui/FormRow";
 import { useUpdateCategory } from "./hooks/useUpdateCategory";
 import { MiniSpinner } from "@/ui/MiniSpinner";
@@ -57,10 +57,10 @@ export function CategoryForm({
     if (categoryToEdit) {
       updateCategory(
         { id: categoryToEdit?.id, updatedData: data },
-        { onSettled:  onCloseModal },
+        { onSettled: onCloseModal },
       );
     } else {
-      createCategory(data, { onSettled:  onCloseModal });
+      createCategory(data, { onSettled: onCloseModal });
     }
   };
 
@@ -144,8 +144,8 @@ export function CategoryForm({
               value={currentColor || "#000000"}
               onChange={(e) =>
                 setValue("categoryColor", e.target.value, {
-                  shouldValidate: true, // عشان يشيل الإيرور لو كان موجود
-                  shouldDirty: true, // عشان يعرف الفورم إن حصل تغيير
+                  shouldValidate: true,
+                  shouldDirty: true,
                 })
               }
             />
