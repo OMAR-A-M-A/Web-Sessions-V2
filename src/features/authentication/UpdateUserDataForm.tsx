@@ -32,7 +32,7 @@ export function UpdateUserDataForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-10 w-full max-w-4xl">
+    <form onSubmit={handleSubmit} className="mb-10 w-full">
       <h3 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-200">
         Update user data
       </h3>
@@ -56,7 +56,7 @@ export function UpdateUserDataForm() {
         </FormRow>
         
         <div className="grid grid-cols-1 md:grid-cols-[240px_1fr_1fr] items-center gap-4 py-5 space-y-0">
-          <div className="md:col-start-3 flex gap-3">
+          <div className="md:col-end-13 flex gap-3">
             <Button
               type="button"
               variant="outline"

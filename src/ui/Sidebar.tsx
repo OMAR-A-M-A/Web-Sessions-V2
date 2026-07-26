@@ -9,6 +9,7 @@ import {
   ChartBarStacked,
 } from "lucide-react";
 import { Logo } from "./Logo";
+import { UserProfile } from "@/features/authentication/UserProfile";
 
 const navLinks = [
   { name: "Overview", to: "/admin/dashboard", icon: LayoutDashboard },
@@ -44,6 +45,7 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
+      <UserProfile/>
     </aside>
   );
 }

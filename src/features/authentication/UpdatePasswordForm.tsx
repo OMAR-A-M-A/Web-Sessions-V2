@@ -49,12 +49,20 @@ export function UpdatePasswordForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-10 w-full max-w-4xl">
+    <form onSubmit={handleSubmit} className="mb-10 w-full">
       <h3 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-200">
         Update password
       </h3>
       <div className="divide-y divide-slate-200 dark:divide-slate-800">
-        <FormRow label="Password (min 8 characters)" error={error && password.length > 0 && password.length < 8 ? "Must be at least 8 chars" : ""} className="grid grid-cols-1 md:grid-cols-[240px_1fr_1fr] items-center gap-4 py-5 space-y-0">
+        <FormRow
+          label="Password (min 8 characters)"
+          error={
+            error && password.length > 0 && password.length < 8
+              ? "Must be at least 8 chars"
+              : ""
+          }
+          className="grid grid-cols-1 md:grid-cols-[240px_1fr_1fr] items-center gap-4 py-5 space-y-0"
+        >
           <Input
             type="password"
             value={password}
@@ -63,8 +71,12 @@ export function UpdatePasswordForm() {
             className="max-w-md"
           />
         </FormRow>
-        
-        <FormRow label="Confirm password" error={error} className="grid grid-cols-1 md:grid-cols-[240px_1fr_1fr] items-center gap-4 py-5 space-y-0">
+
+        <FormRow
+          label="Confirm password"
+          error={error}
+          className="grid grid-cols-1 md:grid-cols-[240px_1fr_1fr] items-center gap-4 py-5 space-y-0"
+        >
           <Input
             type="password"
             value={passwordConfirm}
@@ -73,9 +85,9 @@ export function UpdatePasswordForm() {
             className="max-w-md"
           />
         </FormRow>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-[240px_1fr_1fr] items-center gap-4 py-5 space-y-0">
-          <div className="md:col-start-3 flex gap-3">
+          <div className="md:col-end-13 flex gap-3">
             <Button
               type="button"
               variant="outline"
