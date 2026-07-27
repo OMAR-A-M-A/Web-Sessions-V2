@@ -9,20 +9,27 @@ import {
 } from "@/ui/table";
 import { Switch } from "@/ui/switch";
 import { Button } from "@/ui/button";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Pencil, Trash2, Eye, ExternalLink } from "lucide-react";
-import { useSessions } from "./hooks/useSessions";
+import { Pencil, Trash2, ExternalLink } from "lucide-react";
 import { Spinner } from "@/ui/Spinner";
 import { Modal } from "@/ui/Modal";
 import { ConfirmDelete } from "@/ui/ConfirmDelete";
 import { useDeleteSession } from "./hooks/useDeleteSession";
 import { useUpdateSession } from "./hooks/useUpdateSession";
+import { SessionForm } from "./SessionForm";
 import { PAGE_SIZE } from "@/utils/constants";
 import TechIcon from "@/ui/TechIcon";
 import Pagination from "@/ui/Pagination";
-
-export default function SessionsTable() {
-  const { sessions, isLoadingSessions, count } = useSessions();
+import type { SessionWithDetails } from "@/types/sessionsTypes";
+interface SessionsTableProps {
+  sessions: SessionWithDetails[] | undefined;
+  isLoadingSessions: boolean | undefined;
+  count: number | undefined | null;
+}
+export default function SessionsTable({
+  isLoadingSessions,
+  sessions,
+  count,
+}: SessionsTableProps) {
   const { deleteSession, isDeleting } = useDeleteSession();
   const { isUpdating, updateSession } = useUpdateSession();
 
@@ -99,7 +106,9 @@ export default function SessionsTable() {
               </TableCell>
 
               <TableCell className="text-sm text-slate-600 dark:text-slate-400 text-center">
-                {new Date(session.created_at).toLocaleDateString()}
+                {new Date(
+                  session.publishDate || session.created_at,
+                ).toLocaleDateString()}
               </TableCell>
 
               <TableCell className="text-sm text-slate-600 dark:text-slate-400 text-center">
@@ -191,15 +200,12 @@ export default function SessionsTable() {
                   </Modal.Window>
 
                   <Modal.Window
-                    className="max-w-2xl"
+                    className="w-2xl"
                     name="edit-session"
                     title="Edit Session"
                     description="Update the session details"
                   >
-                    {/* This will be replaced with <SessionForm sessionToEdit={session} /> once built */}
-                    <div className="p-4 text-center text-muted-foreground">
-                      Session form coming soon...
-                    </div>
+                    <SessionForm sessionToEdit={session} />
                   </Modal.Window>
 
                   {/* <Modal.Window

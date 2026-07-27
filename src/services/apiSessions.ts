@@ -92,7 +92,7 @@ export async function createSession(
   newSession: SessionInput,
   imageFile?: File | null
 ): Promise<Session> {
-  let coverImageUrl = newSession.cover_image;
+  let coverImageUrl = "";
 
   if (imageFile) {
     // Generate a unique image name
@@ -132,17 +132,44 @@ export async function createSession(
 
 //* update session
 interface UpdateSessionArgs {
-  id: string;
+  id: string | undefined;
   updatedSession: Partial<SessionInput>;
+  imageFile?: File | null;
 }
 
 export async function updateSession({
   id,
   updatedSession,
+  imageFile,
 }: UpdateSessionArgs): Promise<Session> {
+  let coverImageUrl = "";
+
+  if (imageFile) {
+    const imageName = `${Math.random()}-${imageFile.name}`.replaceAll("/", "");
+    
+    const { error: storageError } = await supabase.storage
+      .from("covers")
+      .upload(imageName, imageFile);
+
+    if (storageError) {
+      console.error("Error uploading image:", storageError);
+      throw new Error("Could not upload the cover image.");
+    }
+
+    coverImageUrl = `${supabaseUrl}/storage/v1/object/public/covers/${imageName}`;
+  }
+
+  const sessionData = {
+    ...updatedSession,
+  };
+
+  if (imageFile) {
+    sessionData.cover_image = coverImageUrl;
+  }
+
   const { data, error } = await supabase
     .from("sessions")
-    .update(updatedSession)
+    .update(sessionData)
     .eq("id", id)
     .select()
     .single();
