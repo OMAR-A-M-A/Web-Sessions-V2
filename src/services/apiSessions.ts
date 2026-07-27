@@ -9,7 +9,7 @@ import { PAGE_SIZE } from "@/utils/constants";
 
 //* get all sessions with pagination, filtering, sorting, and joined details
 export async function getSessions({
-  filter,
+  filters,
   sortBy,
   page,
 }: GetSessionsParams): Promise<{
@@ -23,14 +23,16 @@ export async function getSessions({
       { count: "exact" },
     );
 
-  // apply filter
-  if (filter) {
-    if (filter.method) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      query = (query as any)[filter.method](filter.field, filter.value);
-    } else {
-      query = query.eq(filter.field, filter.value);
-    }
+  // apply filters
+  if (filters && filters.length > 0) {
+    filters.forEach((f) => {
+      if (f.method) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        query = (query as any)[f.method](f.field, f.value);
+      } else {
+        query = query.eq(f.field, f.value);
+      }
+    });
   }
 
   // apply sorting

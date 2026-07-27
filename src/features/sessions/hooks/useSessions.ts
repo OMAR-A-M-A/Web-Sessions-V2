@@ -2,19 +2,27 @@ import { getSessions } from "@/services/apiSessions";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "@/utils/constants";
-
+interface filterObj {
+  field: "category_id" | "is_visible";
+  value: string | boolean | number;
+}
 export function useSessions() {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
-  // FILTER
-  // By default, looking for a "category" parameter in the URL.
-  // You can change "category" to match whatever filterName you pass to the Filter component.
-  const filterValue = searchParams.get("category");
-  const filter =
-    !filterValue || filterValue === "all"
-      ? null
-      : { field: "category_id", value: filterValue };
+  // FILTERS
+  const categoryValue = searchParams.get("category");
+  const visibleValue = searchParams.get("is_visible");
+
+  const filters: filterObj[] = [];
+
+  if (categoryValue && categoryValue !== "all") {
+    filters.push({ field: "category_id", value: categoryValue });
+  }
+
+  if (visibleValue && visibleValue !== "all") {
+    filters.push({ field: "is_visible", value: visibleValue === "true" });
+  }
 
   // SORT
   const sortByRaw = searchParams.get("sortBy") || "display_order-asc";
@@ -22,17 +30,16 @@ export function useSessions() {
   const sortBy = { field, direction: direction as "asc" | "desc" };
 
   // PAGINATION
-  const page = !searchParams.get("page")
-    ? 1
-    : Number(searchParams.get("page"));
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   // QUERY
   const {
     data: { data: sessions, count } = {},
     isPending: isLoadingSessions,
+    error,
   } = useQuery({
-    queryKey: ["sessions", filter, sortBy, page],
-    queryFn: () => getSessions({ filter, sortBy, page }),
+    queryKey: ["sessions", filters, sortBy, page],
+    queryFn: () => getSessions({ filters, sortBy, page }),
   });
 
   // PRE-FETCHING
@@ -40,17 +47,17 @@ export function useSessions() {
 
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["sessions", filter, sortBy, page + 1],
-      queryFn: () => getSessions({ filter, sortBy, page: page + 1 }),
+      queryKey: ["sessions", filters, sortBy, page + 1],
+      queryFn: () => getSessions({ filters, sortBy, page: page + 1 }),
     });
   }
 
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["sessions", filter, sortBy, page - 1],
-      queryFn: () => getSessions({ filter, sortBy, page: page - 1 }),
+      queryKey: ["sessions", filters, sortBy, page - 1],
+      queryFn: () => getSessions({ filters, sortBy, page: page - 1 }),
     });
   }
 
-  return { sessions, isLoadingSessions, count };
+  return { sessions, isLoadingSessions, error, count };
 }

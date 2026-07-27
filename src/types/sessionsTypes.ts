@@ -23,7 +23,7 @@ export interface SessionWithDetails extends Session {
 }
 
 export interface GetSessionsParams {
-  filter?: { field: string; value: string; method?: string } | null;
+  filters?: { field: string; value: any; method?: string }[] | null;
   sortBy?: { field: string; direction: "asc" | "desc" } | null;
   page?: number | null;
 }
