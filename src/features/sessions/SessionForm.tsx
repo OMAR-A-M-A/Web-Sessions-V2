@@ -190,7 +190,7 @@ export function SessionForm({
           <Input
             id="display_order"
             type="number"
-            disabled={isWorking}
+            disabled={isEditSession ? isWorking : true}
             className={errors.display_order ? "border-red-500" : ""}
             {...register("display_order")}
           />

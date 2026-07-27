@@ -71,7 +71,7 @@ export default function SessionsTable({
                     <img
                       src={session.cover_image}
                       alt={session.title}
-                      className="h-10 w-16 rounded-md object-cover"
+                      className="h-10 w-16 rounded-md object-cover border-2"
                     />
                   ) : (
                     <div className="flex h-10 w-16 items-center justify-center rounded-md bg-slate-100 text-xs text-slate-400 dark:bg-slate-800">
