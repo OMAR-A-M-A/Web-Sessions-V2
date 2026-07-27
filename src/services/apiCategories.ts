@@ -1,9 +1,6 @@
 import type { Category, CategoryInput } from "@/types/categoryTypes";
 import supabase from "./supabase";
 
-//* types for category
-
-
 //* get all categories
 export async function getCategories(): Promise<{
   data: Category[];
@@ -97,4 +94,22 @@ export async function deleteCategory(id: string): Promise<void> {
     console.error(`Error deleting category ${id}:`, error);
     throw new Error("Could not delete the category.");
   }
+}
+
+export async function getCategoryOptions() {
+  const { data, error } = await supabase
+    .from("categories")
+    .select("name, slug");
+
+  if (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+
+  const options = data.map((category) => ({
+    label: category.name,
+    value: category.slug,
+  }));
+
+  return options;
 }
