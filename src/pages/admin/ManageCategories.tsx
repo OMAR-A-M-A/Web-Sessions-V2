@@ -1,9 +1,8 @@
-import { LayoutGrid, Eye, EyeOff, Plus } from "lucide-react";
-import { Button } from "@/ui/button";
+import { LayoutGrid, Eye, EyeOff } from "lucide-react";
 import StatCard from "@/ui/StateCard";
 import CategoriesTable from "@/features/categories/CategoriesTable";
-import { Modal } from "@/ui/Modal";
 import { CategoryForm } from "@/features/categories/CategoryForm";
+import AddButton from "@/ui/AddButton";
 
 export default function ManageCategories() {
   return (
@@ -40,22 +39,9 @@ export default function ManageCategories() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
             All Categories
           </h2>
-          <Modal>
-            <Modal.Open opens="create-category">
-              <Button className="w-full bg-yellow-500 text-slate-900 hover:bg-yellow-600 lg:w-auto px-6 py-6 font-bold">
-                <Plus className="mr-2 h-5 w-5" />
-                Add Category
-              </Button>
-            </Modal.Open>
-            <Modal.Window
-              name="create-category"
-              title="Create Category"
-              description="Add new category in the website"
-              className="w-2xl"
-            >
-              <CategoryForm />
-            </Modal.Window>
-          </Modal>
+          <AddButton buttonName="Add Category">
+            <CategoryForm />
+          </AddButton>
         </div>
         <CategoriesTable />
       </div>

@@ -33,44 +33,46 @@ export default function CategoriesTable() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[5%]">#</TableHead>
-          <TableHead className="w-[20%]">Category</TableHead>
-          <TableHead className="w-[15%]">Slug</TableHead>
-          <TableHead className="w-[15%]">Color</TableHead>
-          <TableHead className="w-[12%]">Sessions</TableHead>
-          <TableHead className="w-[12%]">Tasks</TableHead>
-          <TableHead className="w-[10%]">Visible</TableHead>
-          <TableHead className="w-[11%] text-right">Actions</TableHead>
+          <TableHead className="w-[5%] text-center">#</TableHead>
+          <TableHead className="w-[5%] text-center">Icon</TableHead>
+          <TableHead className="w-[15%] text-center">Category</TableHead>
+          <TableHead className="w-[15%] text-center">Slug</TableHead>
+          <TableHead className="w-[15%] text-center">Color</TableHead>
+          <TableHead className="w-[12%] text-center">Sessions</TableHead>
+          <TableHead className="w-[12%] text-center">Tasks</TableHead>
+          <TableHead className="w-[10%] text-center">Visible</TableHead>
+          <TableHead className="w-[11%] text-center">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {categories?.map((category, index) => (
           <TableRow key={category.id}>
             <Modal>
-              <TableCell className="font-medium text-slate-500">
+              <TableCell className="font-medium text-slate-500 text-center">
                 {index + 1}
               </TableCell>
 
               <TableCell>
-                <div className="flex items-center gap-3">
+                <div className="flex justify-center">
                   <div
                     className="flex h-8 w-8 items-center justify-center rounded-md bg-slate-100 dark:bg-slate-800/50"
                     style={{ color: category.categoryColor }}
                   >
                     <TechIcon techName={category.slug} className="h-5 w-5" />
                   </div>
-                  <span className="font-semibold text-slate-900 dark:text-slate-100">
-                    {category.name}
-                  </span>
                 </div>
               </TableCell>
 
-              <TableCell className="text-slate-600 dark:text-slate-400">
+              <TableCell className="font-semibold text-slate-900 dark:text-slate-100 text-center">
+                {category.name}
+              </TableCell>
+
+              <TableCell className="text-slate-600 dark:text-slate-400 text-center">
                 {category.slug}
               </TableCell>
 
               <TableCell>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center gap-2">
                   <div
                     className="h-3 w-3 rounded-full"
                     style={{ backgroundColor: category.categoryColor }}
@@ -81,29 +83,31 @@ export default function CategoriesTable() {
                 </div>
               </TableCell>
 
-              <TableCell className="text-slate-600 dark:text-slate-400">
+              <TableCell className="text-slate-600 dark:text-slate-400 text-center">
                 {category.sessions == 0 ? "—" : category.sessions}
               </TableCell>
 
-              <TableCell className="text-slate-600 dark:text-slate-400">
+              <TableCell className="text-slate-600 dark:text-slate-400 text-center">
                 {category.tasks == 0 ? "—" : category.tasks}
               </TableCell>
 
               <TableCell>
-                <Switch
-                  checked={category.isVisible}
-                  disabled={isUpdating}
-                  onCheckedChange={() =>
-                    updateCategory({
-                      id: category.id,
-                      updatedData: { isVisible: !category.isVisible },
-                    })
-                  }
-                />
+                <div className="flex justify-center">
+                  <Switch
+                    checked={category.isVisible}
+                    disabled={isUpdating}
+                    onCheckedChange={() =>
+                      updateCategory({
+                        id: category.id,
+                        updatedData: { isVisible: !category.isVisible },
+                      })
+                    }
+                  />
+                </div>
               </TableCell>
 
-              <TableCell className="text-right">
-                <div className="flex items-center justify-end gap-2">
+              <TableCell className="text-center">
+                <div className="flex items-center justify-center gap-2">
                   <Modal.Open opens="edit-category">
                     <Button
                       variant="ghost"
