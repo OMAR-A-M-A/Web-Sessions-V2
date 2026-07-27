@@ -15,7 +15,7 @@ export default function Filter({ filterName, options }: FilterProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Get current filter value from URL, or default to the first option
-  const currentFilter = searchParams.get(filterName) || options?.[0]?.value;
+  const currentFilter = searchParams.get(filterName) || "all";
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     searchParams.set(filterName, e.target.value);
@@ -35,7 +35,11 @@ export default function Filter({ filterName, options }: FilterProps) {
         onChange={handleChange}
         className="flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
       >
-        {filterName === "category" && <option key="all" value="all">All</option>}
+        {filterName === "category" && (
+          <option key="all" value="all">
+            All
+          </option>
+        )}
         {options?.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

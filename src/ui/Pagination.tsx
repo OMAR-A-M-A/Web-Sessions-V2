@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "@/utils/constants";
 
 interface PaginationProps {
-  count: number;
+  count: number | undefined | null;
 }
 
 export default function Pagination({ count }: PaginationProps) {
@@ -15,7 +15,7 @@ export default function Pagination({ count }: PaginationProps) {
     : Number(searchParams.get("page"));
 
   // Calculate total pages
-  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const pageCount = Math.ceil((count || 1 )/ PAGE_SIZE);
 
   function nextPage() {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
@@ -35,7 +35,11 @@ export default function Pagination({ count }: PaginationProps) {
   return (
     <div className="flex w-full items-center justify-between px-2">
       <p className="text-sm text-muted-foreground">
-        Showing <span className="font-medium text-foreground">{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+        Showing{" "}
+        <span className="font-medium text-foreground">
+          {(currentPage - 1) * PAGE_SIZE + 1}
+        </span>{" "}
+        to{" "}
         <span className="font-medium text-foreground">
           {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
         </span>{" "}
@@ -51,7 +55,7 @@ export default function Pagination({ count }: PaginationProps) {
           <ChevronLeft className="h-4 w-4" />
           <span>Previous</span>
         </button>
-        
+
         <button
           onClick={nextPage}
           disabled={currentPage === pageCount}

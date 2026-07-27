@@ -99,7 +99,7 @@ export async function deleteCategory(id: string): Promise<void> {
 export async function getCategoryOptions() {
   const { data, error } = await supabase
     .from("categories")
-    .select("name, slug");
+    .select("name, id");
 
   if (error) {
     console.error("Error fetching categories:", error);
@@ -108,7 +108,7 @@ export async function getCategoryOptions() {
 
   const options = data.map((category) => ({
     label: category.name,
-    value: category.slug,
+    value: category.id,
   }));
 
   return options;

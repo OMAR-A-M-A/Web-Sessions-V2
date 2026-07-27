@@ -53,7 +53,7 @@ function Open({ children, opens: opensWindowName }: OpenProps) {
   });
 }
 
-interface ModalChildProps {
+export interface ModalChildProps {
   onCloseModal?: () => void;
 }
 interface WindowProps {
