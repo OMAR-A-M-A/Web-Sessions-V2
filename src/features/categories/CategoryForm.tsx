@@ -13,11 +13,13 @@ import { useCreateCategory } from "./hooks/useCreateCategory";
 interface CategoryFormProps {
   categoryToEdit?: Category;
   onCloseModal?: () => void;
+  count?: number | null;
 }
 
 export function CategoryForm({
   categoryToEdit,
   onCloseModal,
+  count,
 }: CategoryFormProps) {
   const { isUpdating, updateCategory } = useUpdateCategory();
   const { isCreating, createCategory } = useCreateCategory();
@@ -46,7 +48,7 @@ export function CategoryForm({
           categoryColor: "#3B82F6",
           isVisible: true,
           description: "",
-          displayOrder: 0,
+          displayOrder: (count ?? 0) + 1,
         },
   });
   const currentColor = useWatch({
@@ -123,7 +125,7 @@ export function CategoryForm({
           <Input
             id="displayOrder"
             type="number"
-            disabled={isSubmitting}
+            disabled={isEditSession ? isSubmitting : true}
             className={errors.displayOrder ? "border-red-500" : ""}
             {...register("displayOrder")}
           />

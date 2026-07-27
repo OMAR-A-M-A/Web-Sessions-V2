@@ -10,16 +10,18 @@ import { Switch } from "@/ui/switch";
 import { Button } from "@/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import TechIcon from "@/ui/TechIcon";
-import { useCategories } from "./hooks/useCategories";
 import { Spinner } from "@/ui/Spinner";
 import { Modal } from "@/ui/Modal";
 import { ConfirmDelete } from "@/ui/ConfirmDelete";
 import { useDeleteCategory } from "./hooks/useDeleteCategory";
 import { useUpdateCategory } from "./hooks/useUpdateCategory";
 import { CategoryForm } from "./CategoryForm";
-
-export default function CategoriesTable() {
-  const { categories, isLoadingCategories } = useCategories();
+import type { Category } from "@/types/categoryTypes";
+interface CategoriesTableProps {
+  categories: Category[] |undefined;
+  isLoadingCategories: boolean|undefined;
+}
+export default function CategoriesTable({ isLoadingCategories, categories }:CategoriesTableProps) {
   const { deleteCategory, isDeleteing } = useDeleteCategory();
   const { isUpdating, updateCategory } = useUpdateCategory();
   if (isLoadingCategories) return <Spinner />;
