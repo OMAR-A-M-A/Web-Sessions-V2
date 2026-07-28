@@ -4,9 +4,10 @@ import { PAGE_SIZE } from "@/utils/constants";
 
 interface PaginationProps {
   count: number | undefined | null;
+  pageSize?: number;
 }
 
-export default function Pagination({ count }: PaginationProps) {
+export default function Pagination({ count, pageSize }: PaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Get current page from URL params, default to 1 if not set
@@ -15,7 +16,7 @@ export default function Pagination({ count }: PaginationProps) {
     : Number(searchParams.get("page"));
 
   // Calculate total pages
-  const pageCount = Math.ceil((count || 1 )/ PAGE_SIZE);
+  const pageCount = Math.ceil((count || 1) / (pageSize ? pageSize : PAGE_SIZE));
 
   function nextPage() {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
@@ -33,15 +34,17 @@ export default function Pagination({ count }: PaginationProps) {
   if (pageCount <= 1) return null;
 
   return (
-    <div className="flex w-full items-center justify-between px-2">
+    <div className="flex w-full items-center justify-between px-2 py-3">
       <p className="text-sm text-muted-foreground">
         Showing{" "}
         <span className="font-medium text-foreground">
-          {(currentPage - 1) * PAGE_SIZE + 1}
+          {(currentPage - 1) * (pageSize ? pageSize : PAGE_SIZE) + 1}
         </span>{" "}
         to{" "}
         <span className="font-medium text-foreground">
-          {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
+          {currentPage === pageCount
+            ? count
+            : currentPage * (pageSize ? pageSize : PAGE_SIZE)}
         </span>{" "}
         of <span className="font-medium text-foreground">{count}</span> results
       </p>
