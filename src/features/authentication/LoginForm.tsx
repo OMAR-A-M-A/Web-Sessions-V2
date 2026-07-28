@@ -12,7 +12,7 @@ export default function LoginForm() {
 
   const { login, isPending } = useLogin();
 
-  function handleSubmit(e: React.SubmitEvent) {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!email || !password) return;
 

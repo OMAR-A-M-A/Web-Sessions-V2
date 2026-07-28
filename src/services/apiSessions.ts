@@ -132,7 +132,7 @@ export async function createSession(
 
 //* update session
 interface UpdateSessionArgs {
-  id: string | undefined;
+  id: string;
   updatedSession: Partial<SessionInput>;
   imageFile?: File | null;
 }

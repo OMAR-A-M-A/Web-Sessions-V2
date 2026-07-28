@@ -8,7 +8,7 @@ function useCreateCategory() {
   const { isPending: isCreating, mutate: createCategory } = useMutation({
     mutationFn: createCategoryApi,
     onSuccess: () => {
-      toast.success("Category created succesfully");
+      toast.success("Category created successfully");
       queryClient.invalidateQueries({
         queryKey: ["categories"],
       });

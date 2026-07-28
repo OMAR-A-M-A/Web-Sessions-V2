@@ -58,7 +58,7 @@ export function CategoryForm({
   const onSubmit = (data: CategoryFormData) => {
     if (categoryToEdit) {
       updateCategory(
-        { id: categoryToEdit?.id, updatedData: data },
+        { id: categoryToEdit.id, updatedData: data },
         { onSettled: onCloseModal },
       );
     } else {

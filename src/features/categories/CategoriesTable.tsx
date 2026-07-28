@@ -16,13 +16,16 @@ import { ConfirmDelete } from "@/ui/ConfirmDelete";
 import { useDeleteCategory } from "./hooks/useDeleteCategory";
 import { useUpdateCategory } from "./hooks/useUpdateCategory";
 import { CategoryForm } from "./CategoryForm";
-import type { Category } from "@/types/categoryTypes";
+import type { CategoryWithDetails } from "@/types/categoryTypes";
 interface CategoriesTableProps {
-  categories: Category[] |undefined;
-  isLoadingCategories: boolean|undefined;
+  categories: CategoryWithDetails[] | undefined;
+  isLoadingCategories: boolean | undefined;
 }
-export default function CategoriesTable({ isLoadingCategories, categories }:CategoriesTableProps) {
-  const { deleteCategory, isDeleteing } = useDeleteCategory();
+export default function CategoriesTable({
+  isLoadingCategories,
+  categories,
+}: CategoriesTableProps) {
+  const { deleteCategory, isDeleting } = useDeleteCategory();
   const { isUpdating, updateCategory } = useUpdateCategory();
   if (isLoadingCategories) return <Spinner />;
   if (!categories?.length)
@@ -136,7 +139,7 @@ export default function CategoriesTable({ isLoadingCategories, categories }:Cate
                   >
                     <ConfirmDelete
                       resourceName="category"
-                      disabled={isDeleteing}
+                      disabled={isDeleting}
                       onConfirm={() => deleteCategory(category.id)}
                     />
                   </Modal.Window>

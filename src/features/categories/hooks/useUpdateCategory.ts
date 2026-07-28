@@ -8,7 +8,7 @@ function useUpdateCategory() {
   const { isPending: isUpdating, mutate: updateCategory } = useMutation({
     mutationFn: updateCategoryApi,
     onSuccess: () => {
-      toast.success("Category updated succesfully");
+      toast.success("Category updated successfully");
       queryClient.invalidateQueries({
         queryKey: ["categories"],
       });

@@ -1,9 +1,13 @@
-import type { Category, CategoryInput } from "@/types/categoryTypes";
+import type {
+  Category,
+  CategoryInput,
+  CategoryWithDetails,
+} from "@/types/categoryTypes";
 import supabase from "./supabase";
 
 //* get all categories
 export async function getCategories(): Promise<{
-  data: Category[];
+  data: CategoryWithDetails[];
   count: number | null;
 }> {
   const { data, error, count } = await supabase
@@ -18,7 +22,7 @@ export async function getCategories(): Promise<{
     throw new Error("Could not fetch categories. Please try again later.");
   }
   // format the data to extract the number of sessions and tasks
-  const formattedData: Category[] = (data || []).map((category) => ({
+  const formattedData: CategoryWithDetails[] = (data || []).map((category) => ({
     ...category,
     sessions: category.sessions?.[0]?.count || 0,
     tasks: category.tasks?.[0]?.count || 0,
@@ -28,7 +32,7 @@ export async function getCategories(): Promise<{
 }
 
 //* get one category by id
-export async function getCategoryById(id: string): Promise<Category> {
+export async function getCategoryById(id: string): Promise<CategoryWithDetails> {
   const { data, error } = await supabase
     .from("categories")
     .select("*")
@@ -97,9 +101,7 @@ export async function deleteCategory(id: string): Promise<void> {
 }
 
 export async function getCategoryOptions() {
-  const { data, error } = await supabase
-    .from("categories")
-    .select("name, id");
+  const { data, error } = await supabase.from("categories").select("name, id");
 
   if (error) {
     console.error("Error fetching categories:", error);

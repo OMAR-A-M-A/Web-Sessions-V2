@@ -71,9 +71,9 @@ export function SessionForm({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { cover_image, ...sessionData } = data;
 
-    if (isEditSession) {
+    if (isEditSession && sessionToEdit) {
       updateSession(
-        { id: sessionToEdit?.id, updatedSession: sessionData, imageFile },
+        { id: sessionToEdit.id, updatedSession: sessionData, imageFile },
         {
           onSettled: () => {
             reset();
