@@ -10,7 +10,6 @@ import { Switch } from "@/ui/switch";
 import { Button } from "@/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import TechIcon from "@/ui/TechIcon";
-import { Spinner } from "@/ui/Spinner";
 import { Modal } from "@/ui/Modal";
 import { ConfirmDelete } from "@/ui/ConfirmDelete";
 import { useDeleteCategory } from "./hooks/useDeleteCategory";
@@ -19,15 +18,12 @@ import { CategoryForm } from "./CategoryForm";
 import type { CategoryWithDetails } from "@/types/categoryTypes";
 interface CategoriesTableProps {
   categories: CategoryWithDetails[] | undefined;
-  isLoadingCategories: boolean | undefined;
 }
 export default function CategoriesTable({
-  isLoadingCategories,
   categories,
 }: CategoriesTableProps) {
   const { deleteCategory, isDeleting } = useDeleteCategory();
   const { isUpdating, updateCategory } = useUpdateCategory();
-  if (isLoadingCategories) return <Spinner />;
   if (!categories?.length)
     return (
       <p className="flex items-center justify-center">

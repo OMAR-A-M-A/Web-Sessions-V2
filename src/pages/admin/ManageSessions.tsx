@@ -3,9 +3,12 @@ import SessionsOperations from "@/features/sessions/SessionsOperations";
 import SessionsTable from "@/features/sessions/SessionsTable";
 import AddButton from "@/ui/AddButton";
 import { useSessions } from "@/features/sessions/hooks/useSessions";
+import { Spinner } from "@/ui/Spinner";
 
 export default function ManageSessions() {
   const { sessions, isLoadingSessions, count } = useSessions();
+    if (isLoadingSessions) return <Spinner />;
+
   return (
     <div className="flex flex-col gap-8 ">
       <div className="flex justify-between items-center">
@@ -22,7 +25,6 @@ export default function ManageSessions() {
       <SessionsTable
         count={count}
         sessions={sessions}
-        isLoadingSessions={isLoadingSessions}
       />
     </div>
   );

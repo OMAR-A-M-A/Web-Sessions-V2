@@ -1,9 +1,9 @@
 import { useGetCategoryOptions } from "@/features/categories/hooks/useGetCategoryOptions";
 import Filter from "@/ui/Filter";
-import { Spinner } from "@/ui/Spinner";
+import { MiniSpinner } from "@/ui/MiniSpinner";
 function SessionsOperations() {
   const { isLoadingCategoryOptions, options } = useGetCategoryOptions();
-  if (isLoadingCategoryOptions) return <Spinner />;
+  if (isLoadingCategoryOptions) return <MiniSpinner />;
   return (
     <div className="flex items-center gap-8">
       <div className="flex items-center gap-2">

@@ -10,7 +10,6 @@ import {
 import { Switch } from "@/ui/switch";
 import { Button } from "@/ui/button";
 import { Pencil, Trash2, ExternalLink } from "lucide-react";
-import { Spinner } from "@/ui/Spinner";
 import { Modal } from "@/ui/Modal";
 import { ConfirmDelete } from "@/ui/ConfirmDelete";
 import { useDeleteSession } from "./hooks/useDeleteSession";
@@ -22,18 +21,15 @@ import Pagination from "@/ui/Pagination";
 import type { SessionWithDetails } from "@/types/sessionsTypes";
 interface SessionsTableProps {
   sessions: SessionWithDetails[] | undefined;
-  isLoadingSessions: boolean | undefined;
   count: number | undefined | null;
 }
 export default function SessionsTable({
-  isLoadingSessions,
   sessions,
   count,
 }: SessionsTableProps) {
   const { deleteSession, isDeleting } = useDeleteSession();
   const { isUpdating, updateSession } = useUpdateSession();
 
-  if (isLoadingSessions) return <Spinner />;
 
   if (!sessions?.length)
     return (

@@ -4,11 +4,12 @@ import CategoriesTable from "@/features/categories/CategoriesTable";
 import { CategoryForm } from "@/features/categories/CategoryForm";
 import AddButton from "@/ui/AddButton";
 import { useCategories } from "@/features/categories/hooks/useCategories";
+import { Spinner } from "@/ui/Spinner";
 
 
 export default function ManageCategories() {
     const { categories, isLoadingCategories,count } = useCategories();
-
+  if (isLoadingCategories) return <Spinner />;
   return (
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:col-span-3">
@@ -49,7 +50,6 @@ export default function ManageCategories() {
         </div>
         <CategoriesTable
           categories={categories}
-          isLoadingCategories={isLoadingCategories}
         />
       </div>
     </div>
