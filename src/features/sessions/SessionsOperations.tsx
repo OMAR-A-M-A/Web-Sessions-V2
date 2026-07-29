@@ -5,24 +5,27 @@ import { MiniSpinner } from "@/ui/MiniSpinner";
 
 function SessionsOperations() {
   const { isLoadingCategoryOptions, options } = useGetCategoryOptions();
-  
+
   if (isLoadingCategoryOptions) return <MiniSpinner />;
-  
+
   return (
-    <div className="flex items-center gap-8">
-      <div className="flex items-center gap-2">
-        Filter by category:
-        <Filter filterName="category" options={options} />
+    <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="flex items-center gap-2 text-sm font-medium">
+          Filter by category:
+          <Filter filterName="category" options={options} />
+        </div>
+        <Filter
+          filterName="is_visible"
+          variant="buttons"
+          options={[
+            { value: "all", label: "All" },
+            { value: "true", label: "Visible" },
+            { value: "false", label: "Not Visible" },
+          ]}
+        />
       </div>
-      <Filter
-        filterName="is_visible"
-        variant="buttons"
-        options={[
-          { value: "all", label: "All" },
-          { value: "true", label: "Visible" },
-          { value: "false", label: "Not Visible" },
-        ]}
-      />
+
       <SortBy
         options={[
           { value: "display_order-asc", label: "Sort by Order (Asc)" },

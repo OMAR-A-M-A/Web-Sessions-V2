@@ -21,17 +21,16 @@ const sortByOptions = [
 ];
 function FeedbacksOperations() {
   return (
-    <div className="flex items-center justify-between gap-4 py-3">
-      <div className="flex items-center gap-4">
-        <Filter
-          filterName="category"
-          variant="buttons"
-          options={categoryOptions}
-        />
+    <div className="flex flex-col gap-4 py-3 xl:flex-row xl:items-center">
+      <Filter
+        filterName="category"
+        variant="buttons"
+        options={categoryOptions}
+      />
+      <div className="flex items-center justify-between gap-4">
         <Filter filterName="is_read" variant="buttons" options={readOptions} />
+        <SortBy options={sortByOptions}/>
       </div>
-
-      <SortBy options={sortByOptions} />
     </div>
   );
 }

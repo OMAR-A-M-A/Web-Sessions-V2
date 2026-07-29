@@ -35,7 +35,7 @@ export default function Filter({
   // 1. Buttons Variant Styling
   if (variant === "buttons") {
     return (
-      <div className="flex items-center gap-1 rounded-md border border-slate-200 bg-slate-100 p-1 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+      <div className="flex items-center gap-1 rounded-md border border-slate-200 bg-slate-100 p-1 shadow-sm dark:border-slate-800 dark:bg-slate-950 w-fit">
         {options?.map((option) => {
           const isActive = option.value === currentFilter;
           return (

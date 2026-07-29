@@ -11,7 +11,7 @@ export default function ManageSessions() {
 
   return (
     <div className="flex flex-col gap-8 ">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
           All Sessions
         </h2>
@@ -22,10 +22,7 @@ export default function ManageSessions() {
           </AddButton>
         </div>
       </div>
-      <SessionsTable
-        count={count}
-        sessions={sessions}
-      />
+      <SessionsTable count={count} sessions={sessions} />
     </div>
   );
 }
