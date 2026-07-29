@@ -6,6 +6,7 @@ export interface Task {
   title: string;
   summary: string | null;
   description: string | null;
+  deadline: string | null;
   is_visible: boolean;
   created_at: string;
 }
@@ -32,11 +33,24 @@ export interface TaskSolution {
 export interface TaskWithDetails extends Task {
   task_attachments: TaskAttachment[];
   task_solutions: TaskSolution[];
-  categories: {
+  categories?: {
     name: string;
     slug: string;
     categoryColor: string;
   } | null;
+  sessionTitle?: string;
+}
+
+export interface TaskListItem {
+  id: string;
+  task_type: "coding" | "research";
+  title: string;
+  summary: string | null;
+  is_visible: boolean;
+  categories: { name: string; slug: string; categoryColor: string } | null;
+  sessionTitle: string | undefined;
+  task_attachments: number;
+  task_solutions: number;
 }
 export interface GetTaskssParams {
   filters?:
