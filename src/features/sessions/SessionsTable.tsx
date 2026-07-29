@@ -9,7 +9,7 @@ import {
 } from "@/ui/table";
 import { Switch } from "@/ui/switch";
 import { Button } from "@/ui/button";
-import { Pencil, Trash2, ExternalLink } from "lucide-react";
+import { Pencil, Trash2, ExternalLink, Eye } from "lucide-react";
 import { Modal } from "@/ui/Modal";
 import { ConfirmDelete } from "@/ui/ConfirmDelete";
 import { useDeleteSession } from "./hooks/useDeleteSession";
@@ -23,13 +23,9 @@ interface SessionsTableProps {
   sessions: SessionWithDetails[] | undefined;
   count: number | undefined | null;
 }
-export default function SessionsTable({
-  sessions,
-  count,
-}: SessionsTableProps) {
+export default function SessionsTable({ sessions, count }: SessionsTableProps) {
   const { deleteSession, isDeleting } = useDeleteSession();
   const { isUpdating, updateSession } = useUpdateSession();
-
 
   if (!sessions?.length)
     return (
@@ -152,15 +148,14 @@ export default function SessionsTable({
 
               <TableCell className="text-center">
                 <div className="flex items-center justify-center gap-1">
-                  {/* <Modal.Open opens="details-session">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 text-slate-500 hover:text-green-600 dark:text-slate-400 dark:hover:text-green-400"
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                  </Modal.Open> */}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-slate-500 hover:text-green-600 dark:text-slate-400 dark:hover:text-green-400"
+                    to={`${session.id}`}
+                  >
+                    <Eye className="h-4 w-4" />
+                  </Button>
 
                   <Modal.Open opens="edit-session">
                     <Button
@@ -203,18 +198,6 @@ export default function SessionsTable({
                   >
                     <SessionForm sessionToEdit={session} />
                   </Modal.Window>
-
-                  {/* <Modal.Window
-                    className="max-w-2xl"
-                    name="details-session"
-                    title="Session Details"
-                    description="View full information about this session"
-                  >
-                    This will be replaced with SessionDetails component once built
-                    <div className="p-4 text-center text-muted-foreground">
-                      Session details coming soon...
-                    </div>
-                  </Modal.Window> */}
                 </div>
               </TableCell>
             </Modal>

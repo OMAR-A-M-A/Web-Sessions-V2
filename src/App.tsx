@@ -24,6 +24,7 @@ const ManagePortfolio = lazy(() => import("./pages/admin/ManagePortfolio"));
 const ManageFeedbacks = lazy(() => import("./pages/admin/ManageFeedbacks"));
 const WebsiteSettings = lazy(() => import("./pages/admin/WebsiteSettings"));
 const Account = lazy(() => import("./pages/admin/Account"));
+const SessionDetails = lazy(() => import("./pages/admin/SessionDetails"));
 
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
@@ -66,6 +67,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="categories" element={<ManageCategories />} />
               <Route path="sessions" element={<ManageSessions />} />
+              <Route path="sessions/:sessionId" element={<SessionDetails />} />
               <Route path="tasks" element={<ManageTasks />} />
               <Route path="portfolio" element={<ManagePortfolio />} />
               <Route path="feedbacks" element={<ManageFeedbacks />} />
