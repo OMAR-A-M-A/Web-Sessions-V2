@@ -18,7 +18,7 @@ import { SessionForm } from "./SessionForm";
 import { PAGE_SIZE } from "@/utils/constants";
 import TechIcon from "@/ui/TechIcon";
 import Pagination from "@/ui/Pagination";
-import type { SessionWithDetails } from "@/types/sessionsTypes";
+import type { SessionWithDetails } from "@/types/sessionTypes";
 interface SessionsTableProps {
   sessions: SessionWithDetails[] | undefined;
   count: number | undefined | null;

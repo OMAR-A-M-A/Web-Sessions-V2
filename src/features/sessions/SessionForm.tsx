@@ -9,7 +9,7 @@ import { useUpdateSession } from "./hooks/useUpdateSession";
 import { useCreateSession } from "./hooks/useCreateSession";
 import { MiniSpinner } from "@/ui/MiniSpinner";
 import { useGetCategoryOptions } from "@/features/categories/hooks/useGetCategoryOptions";
-import type { Session } from "@/types/sessionsTypes";
+import type { Session } from "@/types/sessionTypes";
 
 interface SessionFormProps {
   sessionToEdit?: Session;

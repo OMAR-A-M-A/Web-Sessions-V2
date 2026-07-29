@@ -4,7 +4,7 @@ import type {
   SessionInput,
   SessionWithDetails,
   GetSessionsParams,
-} from "@/types/sessionsTypes";
+} from "@/types/sessionTypes";
 import { PAGE_SIZE } from "@/utils/constants";
 
 //* get all sessions with pagination, filtering, sorting, and joined details
@@ -90,14 +90,14 @@ export async function getSession(id: string): Promise<Session> {
 //* add new session
 export async function createSession(
   newSession: SessionInput,
-  imageFile?: File | null
+  imageFile?: File | null,
 ): Promise<Session> {
   let coverImageUrl = "";
 
   if (imageFile) {
     // Generate a unique image name
     const imageName = `${Math.random()}-${imageFile.name}`.replaceAll("/", "");
-    
+
     // Upload the file to 'covers' bucket
     const { error: storageError } = await supabase.storage
       .from("covers")
@@ -146,7 +146,7 @@ export async function updateSession({
 
   if (imageFile) {
     const imageName = `${Math.random()}-${imageFile.name}`.replaceAll("/", "");
-    
+
     const { error: storageError } = await supabase.storage
       .from("covers")
       .upload(imageName, imageFile);

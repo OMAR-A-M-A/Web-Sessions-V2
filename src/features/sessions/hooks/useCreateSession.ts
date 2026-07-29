@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createSession as createSessionApi } from "@/services/apiSessions";
-import type { SessionInput } from "@/types/sessionsTypes";
+import type { SessionInput } from "@/types/sessionTypes";
 import toast from "react-hot-toast";
 
 export function useCreateSession() {
