@@ -35,7 +35,7 @@ function TaskCards() {
           <div key={catName} className="flex flex-col gap-3">
             <div className="flex items-center gap-3 px-2">
               <div
-                className="flex items-center justify-center w-8 h-8 rounded-xl bg-slate-800 border border-slate-700/50"
+                className="flex items-center justify-center w-8 h-8 rounded-xl bg-slate-100 border-slate-200 dark:bg-slate-800 border dark:border-slate-700/50"
                 style={{ color: group.category?.categoryColor || "#94a3b8" }}
               >
                 <TechIcon
@@ -44,10 +44,10 @@ function TaskCards() {
                 />
               </div>
               <div className="flex items-center gap-2">
-                <h2 className="text-slate-200 font-semibold text-[15px]">
+                <h2 className="text-slate-800 dark:text-slate-200 font-semibold text-[15px]">
                   {catName}
                 </h2>
-                <span className="text-slate-500 text-xs font-medium">
+                <span className="text-slate-500 dark:text-slate-400 text-xs font-medium">
                   {group.tasks.length} task{group.tasks.length !== 1 ? "s" : ""}
                 </span>
               </div>
@@ -59,7 +59,7 @@ function TaskCards() {
             </div>
           </div>
         ))}
-        <Pagination count={count}/>
+      <Pagination count={count} />
     </div>
   );
 }

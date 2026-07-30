@@ -8,7 +8,7 @@ interface TaskSolutionCardProps {
 
 export default function TaskSolutionCard({ solution }: TaskSolutionCardProps) {
   return (
-    <div className="flex items-center justify-between p-4 bg-slate-900/50 border border-slate-800 rounded-xl mb-3 group">
+    <div className="flex items-center justify-between p-4 bg-slate-50 border-slate-200 dark:bg-slate-900/50 border dark:border-slate-800 rounded-xl mb-3 group">
       <div className="flex items-start gap-4">
         {/* Rank Circle */}
         <div className={`flex shrink-0 items-center justify-center w-6 h-6 rounded-full border text-xs font-semibold ${
@@ -21,12 +21,12 @@ export default function TaskSolutionCard({ solution }: TaskSolutionCardProps) {
         
         {/* Info */}
         <div className="flex flex-col">
-          <span className="text-slate-200 text-sm font-medium">{solution.student_name}</span>
-          <a href={solution.solution_url} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline text-xs my-0.5 break-all">
+          <span className="text-slate-800 dark:text-slate-200 text-sm font-medium">{solution.student_name}</span>
+          <a href={solution.solution_url} target="_blank" rel="noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline text-xs my-0.5 break-all">
             {solution.solution_url}
           </a>
           {solution.notes && (
-            <span className="text-slate-400 text-xs mt-1">
+            <span className="text-slate-500 dark:text-slate-400 text-xs mt-1">
               {solution.notes}
             </span>
           )}

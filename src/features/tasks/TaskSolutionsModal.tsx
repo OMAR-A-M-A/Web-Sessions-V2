@@ -15,7 +15,7 @@ export default function TaskSolutionsModal({ taskId }: { taskId: string }) {
 
   return (
     <div className="flex flex-col gap-4 w-lg">
-      <p className="text-slate-400 text-[13px] mb-2 -mt-2">
+      <p className="text-slate-600 dark:text-slate-400 text-[13px] mb-2 -mt-2">
         Rankings are specific to this task only — not a global leaderboard.
       </p>
 
@@ -32,7 +32,7 @@ export default function TaskSolutionsModal({ taskId }: { taskId: string }) {
 
       <Button
         variant="outline"
-        className="w-max mt-2 border-slate-800/80 hover:bg-slate-800 hover:text-slate-200 text-slate-400 h-8 text-xs px-3 font-medium transition-colors"
+        className="w-max mt-2 border-slate-300 dark:border-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 text-slate-700 dark:text-slate-400 h-8 text-xs px-3 font-medium transition-colors"
       >
         + Add Solution
       </Button>

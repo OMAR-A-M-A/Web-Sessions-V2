@@ -30,7 +30,7 @@ function TaskOperations() {
   return (
     <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
       <div className="flex flex-wrap items-center gap-4">
-        <div className="flex items-center gap-2 text-sm font-medium text-slate-200">
+        <div className="flex items-center gap-2 text-sm font-medium text-slate-800 dark:text-slate-200">
           Filter by category:
           <Filter filterName="category" options={categoryOptions || []} />
         </div>

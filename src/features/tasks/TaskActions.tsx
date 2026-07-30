@@ -28,7 +28,7 @@ function TaskActions({ title, id }: TaskActionsProp) {
           <Modal.Open opens="top-solutions">
             <Button
               variant="outline"
-              className="h-7 px-3 text-xs font-medium border-slate-700/80 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-colors"
+              className="h-7 px-3 text-xs font-medium border-slate-700/80 text-slate-500 dark:hover:bg-slate-800 transition-colors"
             >
               Top Solutions
             </Button>
@@ -36,7 +36,7 @@ function TaskActions({ title, id }: TaskActionsProp) {
           <Modal.Window
             name="top-solutions"
             title={`Top Solutions`}
-            className="max-w-2xl bg-[#0d1117] border-slate-800"
+            className="max-w-2xl"
           >
             <TaskSolutionsModal taskId={id} />
           </Modal.Window>
@@ -48,7 +48,7 @@ function TaskActions({ title, id }: TaskActionsProp) {
             <Button
               variant="ghost"
               size="icon"
-              className="h-7 w-7 text-slate-500 hover:text-red-400 hover:bg-slate-800/80 transition-colors opacity-0 group-hover:opacity-100"
+              className="h-7 w-7 text-slate-500 hover:text-red-400 dark:hover:bg-slate-800/80 transition-colors opacity-0 group-hover:opacity-100"
               title="Delete Task"
             >
               <X className="w-4 h-4" />
