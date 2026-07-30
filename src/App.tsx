@@ -19,12 +19,13 @@ const Login = lazy(() => import("./pages/auth/Login"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const ManageCategories = lazy(() => import("./pages/admin/ManageCategories"));
 const ManageSessions = lazy(() => import("./pages/admin/ManageSessions"));
+const SessionDetails = lazy(() => import("./pages/admin/SessionDetails"));
 const ManageTasks = lazy(() => import("./pages/admin/ManageTasks"));
+const TaskDetails = lazy(() => import("./pages/admin/TaskDetails"));
 const ManagePortfolio = lazy(() => import("./pages/admin/ManagePortfolio"));
 const ManageFeedbacks = lazy(() => import("./pages/admin/ManageFeedbacks"));
 const WebsiteSettings = lazy(() => import("./pages/admin/WebsiteSettings"));
 const Account = lazy(() => import("./pages/admin/Account"));
-const SessionDetails = lazy(() => import("./pages/admin/SessionDetails"));
 
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
@@ -69,6 +70,7 @@ function App() {
               <Route path="sessions" element={<ManageSessions />} />
               <Route path="sessions/:sessionId" element={<SessionDetails />} />
               <Route path="tasks" element={<ManageTasks />} />
+              <Route path="tasks/:taskId" element={<TaskDetails />} />
               <Route path="portfolio" element={<ManagePortfolio />} />
               <Route path="feedbacks" element={<ManageFeedbacks />} />
               <Route path="settings" element={<WebsiteSettings />} />
