@@ -1,3 +1,4 @@
+import type { TaskSolution } from "./taskSolutionsTypes";
 export interface Task {
   id: string;
   category_id: string;
@@ -18,16 +19,6 @@ export interface TaskAttachment {
   task_id: string | null;
   link: string;
   type: "image" | "link";
-}
-
-export interface TaskSolution {
-  id: string;
-  task_id: string;
-  rank: number;
-  student_name: string;
-  solution_url: string;
-  notes: string | null;
-  created_at: string;
 }
 
 export interface TaskWithDetails extends Task {
