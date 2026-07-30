@@ -13,6 +13,7 @@ export async function getTasks({
   filters,
   sortBy,
   page,
+  pageSize,
 }: GetTaskssParams): Promise<{ data: TaskListItem[]; count: number | null }> {
   let query = supabase
     .from("tasks")
@@ -45,8 +46,9 @@ export async function getTasks({
 
   // apply pagination
   if (page) {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE - 1;
+    const limit = pageSize || PAGE_SIZE;
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
     query = query.range(from, to);
   }
 

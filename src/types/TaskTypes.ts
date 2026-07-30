@@ -58,4 +58,5 @@ export interface GetTaskssParams {
     | null;
   sortBy?: { field: string; direction: "asc" | "desc" } | null;
   page?: number | null;
+  pageSize?: number;
 }

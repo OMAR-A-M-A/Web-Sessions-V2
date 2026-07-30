@@ -8,7 +8,7 @@ interface filterObj {
   value: string | boolean | number;
 }
 
-export function useTasks() {
+export function useTasks({ pageSize = PAGE_SIZE }: { pageSize?: number } = {}) {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
@@ -45,24 +45,24 @@ export function useTasks() {
     isPending: isLoadingTasks,
     error,
   } = useQuery({
-    queryKey: ["tasks", filters, sortBy, page],
-    queryFn: () => getTasks({ filters, sortBy, page }),
+    queryKey: ["tasks", filters, sortBy, page, pageSize],
+    queryFn: () => getTasks({ filters, sortBy, page, pageSize }),
   });
 
   // PRE-FETCHING
-  const pageCount = Math.ceil((count || 0) / PAGE_SIZE);
+  const pageCount = Math.ceil((count || 0) / pageSize);
 
   if (page < pageCount) {
     queryClient.prefetchQuery({
-      queryKey: ["tasks", filters, sortBy, page + 1],
-      queryFn: () => getTasks({ filters, sortBy, page: page + 1 }),
+      queryKey: ["tasks", filters, sortBy, page + 1, pageSize],
+      queryFn: () => getTasks({ filters, sortBy, page: page + 1, pageSize }),
     });
   }
 
   if (page > 1) {
     queryClient.prefetchQuery({
-      queryKey: ["tasks", filters, sortBy, page - 1],
-      queryFn: () => getTasks({ filters, sortBy, page: page - 1 }),
+      queryKey: ["tasks", filters, sortBy, page - 1, pageSize],
+      queryFn: () => getTasks({ filters, sortBy, page: page - 1, pageSize }),
     });
   }
 

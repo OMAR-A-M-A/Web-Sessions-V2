@@ -3,9 +3,10 @@ import { useTasks } from "./hooks/useTasks";
 import TaskItem from "./TaskItem";
 import TechIcon from "@/ui/TechIcon";
 import type { TaskListItem } from "@/types/TaskTypes";
+import Pagination from "@/ui/Pagination";
 
 function TaskCards() {
-  const { isLoadingTasks, tasks } = useTasks();
+  const { isLoadingTasks, tasks, count } = useTasks({ pageSize: 5 });
   if (isLoadingTasks) return <Spinner />;
 
   // Group tasks by category
@@ -58,6 +59,7 @@ function TaskCards() {
             </div>
           </div>
         ))}
+        <Pagination count={count}/>
     </div>
   );
 }
